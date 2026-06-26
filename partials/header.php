@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,77 +48,114 @@
 
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": ["ProfessionalService", "LocalBusiness"],
-    "@id": "<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $baseUrl ?>/#organization",
-    "name": "Control Consultoria",
-    "alternateName": "Control C Gerenciamento Empresarial Ltda",
-    "url": "<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $baseUrl ?>/",
-    "logo": "<?= $openGraphImage ?>",
-    "image": "<?= $openGraphImage ?>",
-    "description": "Consultoria empresarial especializada em gestão, recrutamento, departamento fiscal e pessoal. Descomplicando a vida do empresário desde 2019.",
-    "founder": {
-      "@type": "Person",
-      "name": "Viviane Andrade",
-      "jobTitle": "CEO & Fundadora"
-    },
-    "foundingDate": "2019",
-    "email": "control01@outlook.com.br",
-    "telephone": "+55-11-96137-1183",
-    "areaServed": {
-      "@type": "City",
-      "name": "São Paulo",
-      "sameAs": "https://pt.wikipedia.org/wiki/S%C3%A3o_Paulo"
-    },
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "São Paulo",
-      "addressRegion": "SP",
-      "addressCountry": "BR"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "customer service",
+    {
+      "@context": "https://schema.org",
+      "@type": ["ProfessionalService", "LocalBusiness"],
+      "@id": "<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $baseUrl ?>/#organization",
+      "name": "Control Consultoria",
+      "alternateName": "Control Consultoria Gerenciamento Empresarial Ltda",
+      "url": "<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $baseUrl ?>/",
+      "logo": "<?= $openGraphImage ?>",
+      "image": "<?= $openGraphImage ?>",
+      "description": "Consultoria empresarial especializada em gestão, recrutamento, departamento fiscal e pessoal. Descomplicando a vida do empresário desde 2019.",
+      "founder": {
+        "@type": "Person",
+        "name": "Viviane Andrade",
+        "jobTitle": "CEO & Fundadora"
+      },
+      "foundingDate": "2019",
+      "email": "control01@outlook.com.br",
       "telephone": "+55-11-96137-1183",
-      "availableLanguage": ["Portuguese"]
-    },
-    "sameAs": [
-      "https://www.instagram.com/controlconsultoria1/",
-      "https://www.facebook.com/controlconsultoria1/",
-      "https://www.linkedin.com/company/control-c-gerenciamento-empresarial-ltda/"
-    ],
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Serviços de Consultoria",
-      "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Consultoria Empresarial" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Recrutamento & Seleção" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gestão Estratégica" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Departamento Fiscal" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Departamento Pessoal" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Treinamento & Desenvolvimento" } }
-      ]
+      "areaServed": {
+        "@type": "City",
+        "name": "São Paulo",
+        "sameAs": "https://pt.wikipedia.org/wiki/S%C3%A3o_Paulo"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "São Paulo",
+        "addressRegion": "SP",
+        "addressCountry": "BR"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer service",
+        "telephone": "+55-11-96137-1183",
+        "availableLanguage": ["Portuguese"]
+      },
+      "sameAs": [
+        "https://www.instagram.com/controlconsultoria1/",
+        "https://www.facebook.com/controlconsultoria1/",
+        "https://www.linkedin.com/company/control-c-gerenciamento-empresarial-ltda/"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Serviços de Consultoria",
+        "itemListElement": [{
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Consultoria Empresarial"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Recrutamento & Seleção"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Gestão Estratégica"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Departamento Fiscal"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Departamento Pessoal"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Treinamento & Desenvolvimento"
+            }
+          }
+        ]
+      }
     }
-  }
   </script>
 
   <!-- BreadcrumbList -->
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      <?php foreach ($breadcrumbItems as $i => $item): ?>{
-        "@type": "ListItem",
-        "position": <?= $i + 1 ?>,
-        "name": "<?= htmlspecialchars($item['name']) ?>",
-        "item": "<?= $item['url'] ? htmlspecialchars((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $item['url']) : htmlspecialchars($pageCanonical) ?>"
-      }<?= $i < count($breadcrumbItems) - 1 ? ',' : '' ?><?php endforeach; ?>
-    ]
-  }
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        <?php foreach ($breadcrumbItems as $i => $item): ?> {
+            "@type": "ListItem",
+            "position": <?= $i + 1 ?>,
+            "name": "<?= htmlspecialchars($item['name']) ?>",
+            "item": "<?= $item['url'] ? htmlspecialchars((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $item['url']) : htmlspecialchars($pageCanonical) ?>"
+          }
+          <?= $i < count($breadcrumbItems) - 1 ? ',' : '' ?><?php endforeach; ?>
+        ]
+    }
   </script>
 </head>
+
 <body>
   <div class="cursor-follower" id="cursorFollower"></div>
 

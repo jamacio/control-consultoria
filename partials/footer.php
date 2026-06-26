@@ -57,13 +57,13 @@
           <ul itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
             <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/5511961371183" target="_blank" rel="noopener" itemprop="telephone">(11) 96137-1183</a></li>
             <li><i class="far fa-envelope"></i> <a href="mailto:control01@outlook.com.br" itemprop="email">control01@outlook.com.br</a></li>
-            <li><i class="fas fa-map-marker-alt"></i> <span itemprop="addressLocality">São Paulo</span>, <span itemprop="addressRegion">SP</span></li>
+            <li><i class="fas fa-map-marker-alt"></i> <span itemprop="addressLocality">São Paulo</span> - <span itemprop="addressRegion">São Paulo</span></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; <?= date('Y') ?> <span itemprop="legalName">Control C Gerenciamento Empresarial Ltda</span>. Todos os direitos reservados.</p>
+        <p>&copy; <?= date('Y') ?> <span itemprop="legalName">Control Consultoria Gerenciamento Empresarial Ltda</span>. Todos os direitos reservados.</p>
         <p class="footer-credits">Viviane Andrade - Control Consultoria</p>
       </div>
     </div>
