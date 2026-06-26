@@ -59,7 +59,7 @@
     <div class="team-grid reveal">
       <div class="team-card">
         <div class="team-image-wrapper">
-          <img src="<?= $baseUrl ?>assets/images/viviane-andrade.jpg" alt="Viviane Andrade" class="team-image">
+          <img src="<?= $baseUrl ?>assets/images/viviane-andrade.jpg" alt="Viviane Andrade - CEO e Fundadora da Control Consultoria" class="team-image" width="300" height="300">
         </div>
         <div class="team-info">
           <h3>Viviane Andrade</h3>

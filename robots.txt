@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /index.php
+
+Sitemap: https://controlconsultoria.com.br/sitemap.xml
+
+# Crawl budget optimization
+Crawl-Delay: 10

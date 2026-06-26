@@ -1,28 +1,30 @@
   </main>
 
-  <footer class="footer">
+  <footer class="footer" itemscope itemtype="https://schema.org/LocalBusiness">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="<?= $baseUrl ?>/" class="logo">
-            <img src="<?= $baseUrl ?>/assets/images/logo-control.png" alt="Control Consultoria" class="logo-img" onerror="this.style.display='none'" style="height:32px;width:auto;">
-            <span class="logo-text">Control <span class="logo-accent">Consultoria</span></span>
+          <a href="<?= $baseUrl ?>/" class="logo" aria-label="Control Consultoria - Página inicial">
+            <img src="<?= $baseUrl ?>/assets/images/logo-control.png" alt="Control Consultoria - Logotipo" class="logo-img" onerror="this.style.display='none'" style="height:32px;width:auto;" width="32" height="32">
+            <span class="logo-text" itemprop="name">Control <span class="logo-accent">Consultoria</span></span>
           </a>
-          <p class="footer-tagline">Descomplicando a vida do empresário</p>
+          <p class="footer-tagline" itemprop="slogan">Descomplicando a vida do empresário</p>
+          <meta itemprop="foundingDate" content="2019">
+          <meta itemprop="description" content="Consultoria empresarial especializada em gestão, recrutamento, departamento fiscal e pessoal.">
           <div class="footer-social">
-            <a href="https://www.instagram.com/controlconsultoria1/" target="_blank" rel="noopener" aria-label="Instagram">
+            <a href="https://www.instagram.com/controlconsultoria1/" target="_blank" rel="noopener" aria-label="Siga a Control Consultoria no Instagram">
               <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://www.facebook.com/controlconsultoria1/" target="_blank" rel="noopener" aria-label="Facebook">
+            <a href="https://www.facebook.com/controlconsultoria1/" target="_blank" rel="noopener" aria-label="Siga a Control Consultoria no Facebook">
               <i class="fab fa-facebook-f"></i>
             </a>
-            <a href="https://wa.me/5511961371183" target="_blank" rel="noopener" aria-label="WhatsApp">
+            <a href="https://wa.me/5511961371183" target="_blank" rel="noopener" aria-label="Fale conosco pelo WhatsApp">
               <i class="fab fa-whatsapp"></i>
             </a>
-            <a href="https://www.linkedin.com/company/control-c-gerenciamento-empresarial-ltda/" target="_blank" rel="noopener" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/company/control-c-gerenciamento-empresarial-ltda/" target="_blank" rel="noopener" aria-label="Siga a Control Consultoria no LinkedIn">
               <i class="fab fa-linkedin-in"></i>
             </a>
-            <a href="mailto:control01@outlook.com.br" aria-label="Email">
+            <a href="mailto:control01@outlook.com.br" aria-label="Envie um e-mail para Control Consultoria">
               <i class="far fa-envelope"></i>
             </a>
           </div>
@@ -52,15 +54,16 @@
 
         <div class="footer-contact">
           <h4>Contato</h4>
-          <ul>
-            <li><i class="fab fa-whatsapp"></i> (11) 96137-1183</li>
-            <li><i class="far fa-envelope"></i> control01@outlook.com.br</li>
+          <ul itemprop="address" itemscope itemtype="https://schema.org/PostalAddress">
+            <li><i class="fab fa-whatsapp"></i> <a href="https://wa.me/5511961371183" target="_blank" rel="noopener" itemprop="telephone">(11) 96137-1183</a></li>
+            <li><i class="far fa-envelope"></i> <a href="mailto:control01@outlook.com.br" itemprop="email">control01@outlook.com.br</a></li>
+            <li><i class="fas fa-map-marker-alt"></i> <span itemprop="addressLocality">São Paulo</span>, <span itemprop="addressRegion">SP</span></li>
           </ul>
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>&copy; <?= date('Y') ?> Control Consultoria. Todos os direitos reservados.</p>
+        <p>&copy; <?= date('Y') ?> <span itemprop="legalName">Control C Gerenciamento Empresarial Ltda</span>. Todos os direitos reservados.</p>
         <p class="footer-credits">Viviane Andrade - Control Consultoria</p>
       </div>
     </div>
@@ -70,7 +73,7 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
-  <script src="<?= $baseUrl ?>/assets/js/main.js"></script>
+  <script src="<?= $baseUrl ?>/assets/js/main.js" defer></script>
   </body>
 
   </html>

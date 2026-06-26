@@ -20,7 +20,7 @@
         <div class="hero-card-glow"></div>
         <div class="hero-card-header">
           <div class="hero-card-brand">
-            <img src="<?= $baseUrl ?>/assets/images/logo-control.png" alt="Control Consultoria" class="hero-card-logo">
+            <img src="<?= $baseUrl ?>/assets/images/logo-control.png" alt="Control Consultoria - Logotipo" class="hero-card-logo" width="48" height="48">
           </div>
           <h3 class="hero-card-title">Control <span class="logo-accent">Consultoria</span></h3>
           <p class="hero-card-subtitle">Liderada por Viviane Andrade</p>
@@ -90,7 +90,7 @@
         <div class="about-image-wrapper">
           <div class="about-brand-card">
             <div class="about-brand-glow"></div>
-            <img src="<?= $baseUrl ?>/assets/images/logo-control.png" alt="Control Consultoria" class="about-image">
+            <img src="<?= $baseUrl ?>/assets/images/logo-control.png" alt="Control Consultoria - Marca da empresa" class="about-image" width="120" height="120">
             <div class="about-brand-footer">
               <span><i class="fas fa-calendar-alt"></i> Desde 2019</span>
               <span><i class="fas fa-map-marker-alt"></i> São Paulo - SP</span>
