@@ -1,0 +1,7 @@
+services:
+  app:
+    image: php:8.5-apache
+    ports:
+      - "4000:80"
+    volumes:
+      - .:/var/www/html
