@@ -62,20 +62,20 @@
         </div>
       </div>
 
-      <div class="service-detailed-card reveal" id="fiscal">
+      <div class="service-detailed-card reveal" id="humanizada">
         <div class="service-detailed-icon">
-          <i class="fas fa-file-invoice-dollar"></i>
+          <i class="fas fa-hand-holding-heart"></i>
         </div>
         <div class="service-detailed-content">
-          <h2>Departamento Fiscal</h2>
-          <p>Equipe atualizada proporcionando o melhor <strong>Planejamento Tributário</strong> para seu negócio, garantindo o cumprimento de todas as exigências fiscais nos âmbitos municipal, estadual e federal.</p>
+          <h2>Consultoria Humanizada</h2>
+          <p>Parte consultora e parte humanizada, trabalhamos com gerentes, empreendedores e pessoas comuns, promovendo autoconhecimento e qualidade de vida emocional para transformar desafios em crescimento.</p>
           <ul class="service-features">
-            <li><i class="fas fa-check"></i> Planejamento tributário</li>
-            <li><i class="fas fa-check"></i> Apuração de impostos</li>
-            <li><i class="fas fa-check"></i> Obrigações acessórias</li>
-            <li><i class="fas fa-check"></i> SPED fiscal e contábil</li>
+            <li><i class="fas fa-check"></i> Desenvolvimento pessoal e profissional</li>
+            <li><i class="fas fa-check"></i> Conteúdo sobre gestão e empreendedorismo</li>
+            <li><i class="fas fa-check"></i> Dicas de carreira e liderança</li>
+            <li><i class="fas fa-check"></i> Comunidade de aprendizado contínuo</li>
           </ul>
-          <a href="<?= $baseUrl ?>/departamento-fiscal" class="service-link" style="margin-top:16px;display:inline-flex">Ver página completa <i class="fas fa-arrow-right"></i></a>
+          <a href="<?= $baseUrl ?>/consultoria-humanizada" class="service-link" style="margin-top:16px;display:inline-flex">Ver página completa <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
 

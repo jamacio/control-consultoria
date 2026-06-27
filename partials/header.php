@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= htmlspecialchars($pageTitle) ?></title>
   <meta name="description" content="<?= htmlspecialchars($pageDescription) ?>">
-  <meta name="keywords" content="consultoria empresarial, recrutamento e seleção, gestão estratégica, departamento fiscal, departamento pessoal, treinamento corporativo, Viviane Andrade, control consultoria, São Paulo">
+  <meta name="keywords" content="consultoria empresarial, recrutamento e seleção, gestão estratégica, departamento pessoal, treinamento corporativo, Viviane Andrade, control consultoria, São Paulo">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <meta name="theme-color" content="#373670">
   <meta name="author" content="Control Consultoria">
@@ -57,7 +57,7 @@
       "url": "<?= (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $baseUrl ?>/",
       "logo": "<?= $openGraphImage ?>",
       "image": "<?= $openGraphImage ?>",
-      "description": "Consultoria empresarial especializada em gestão, recrutamento, departamento fiscal e pessoal. Descomplicando a vida do empresário desde 2019.",
+      "description": "Consultoria empresarial especializada em gestão, recrutamento, departamento pessoal e consultoria humanizada. Descomplicando a vida do empresário desde 2019.",
       "founder": {
         "@type": "Person",
         "name": "Viviane Andrade",
@@ -116,7 +116,7 @@
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Departamento Fiscal"
+              "name": "Consultoria Humanizada"
             }
           },
           {

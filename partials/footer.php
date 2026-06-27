@@ -10,7 +10,7 @@
           </a>
           <p class="footer-tagline" itemprop="slogan">Descomplicando a vida do empresário</p>
           <meta itemprop="foundingDate" content="2019">
-          <meta itemprop="description" content="Consultoria empresarial especializada em gestão, recrutamento, departamento fiscal e pessoal.">
+          <meta itemprop="description" content="Consultoria empresarial especializada em gestão, recrutamento, departamento pessoal e consultoria humanizada.">
           <div class="footer-social">
             <a href="https://www.instagram.com/controlconsultoria1/" target="_blank" rel="noopener" aria-label="Siga a Control Consultoria no Instagram">
               <i class="fab fa-instagram"></i>
@@ -46,7 +46,7 @@
             <li><a href="<?= $baseUrl ?>/consultoria-empresarial">Consultoria Empresarial</a></li>
             <li><a href="<?= $baseUrl ?>/recrutamento-selecao">Recrutamento & Seleção</a></li>
             <li><a href="<?= $baseUrl ?>/gestao-estrategica">Gestão Estratégica</a></li>
-            <li><a href="<?= $baseUrl ?>/departamento-fiscal">Departamento Fiscal</a></li>
+            <li><a href="<?= $baseUrl ?>/consultoria-humanizada">Consultoria Humanizada</a></li>
             <li><a href="<?= $baseUrl ?>/departamento-pessoal">Departamento Pessoal</a></li>
             <li><a href="<?= $baseUrl ?>/treinamento-desenvolvimento">Treinamento & Desenvolvimento</a></li>
           </ul>

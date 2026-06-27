@@ -140,10 +140,10 @@
 
       <div class="service-card reveal">
         <div class="service-card-inner">
-          <div class="service-icon"><i class="fas fa-file-invoice-dollar"></i></div>
-          <h3>Departamento Fiscal</h3>
-          <p>Planejamento tributário inteligente e cumprimento de todas as exigências fiscais.</p>
-          <a href="<?= $baseUrl ?>/departamento-fiscal" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
+          <div class="service-icon"><i class="fas fa-hand-holding-heart"></i></div>
+          <h3>Consultoria Humanizada</h3>
+          <p>Promovemos autoconhecimento e qualidade de vida emocional com uma abordagem humana e próxima.</p>
+          <a href="<?= $baseUrl ?>/consultoria-humanizada" class="service-link">Saiba mais <i class="fas fa-arrow-right"></i></a>
         </div>
       </div>
 

@@ -5,7 +5,8 @@ $fullUrl = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : '
 $allowed = [
   'home', 'sobre', 'servicos', 'contato',
   'consultoria-empresarial', 'recrutamento-selecao',
-  'gestao-estrategica', 'departamento-fiscal',
+  'gestao-estrategica',
+  'consultoria-humanizada',
   'departamento-pessoal', 'treinamento-desenvolvimento'
 ];
 
@@ -19,7 +20,7 @@ if (!in_array($page, $allowed)) {
 }
 
 $currentPage = $page;
-if (in_array($page, ['consultoria-empresarial', 'recrutamento-selecao', 'gestao-estrategica', 'departamento-fiscal', 'departamento-pessoal', 'treinamento-desenvolvimento'])) {
+if (in_array($page, ['consultoria-empresarial', 'recrutamento-selecao', 'gestao-estrategica', 'consultoria-humanizada', 'departamento-pessoal', 'treinamento-desenvolvimento'])) {
   $currentPage = 'servicos';
 }
 
@@ -31,21 +32,21 @@ $pageTitle = match ($page) {
   'consultoria-empresarial' => 'Consultoria Empresarial - Control Consultoria | Estratégia e Gestão',
   'recrutamento-selecao' => 'Recrutamento & Seleção - Control Consultoria | Talentos',
   'gestao-estrategica' => 'Gestão Estratégica - Control Consultoria | Decisões Inteligentes',
-  'departamento-fiscal' => 'Departamento Fiscal - Control Consultoria | Planejamento Tributário',
+  'consultoria-humanizada' => 'Consultoria Humanizada - Control Consultoria | Autoconhecimento e Gestão',
   'departamento-pessoal' => 'Departamento Pessoal - Control Consultoria | Gestão de Pessoas',
   'treinamento-desenvolvimento' => 'Treinamento & Desenvolvimento - Control Consultoria | Capacitação',
   default => 'Control Consultoria',
 };
 
 $pageDescription = match ($page) {
-  'home' => 'Control Consultoria descomplica a gestão empresarial para pequenos e médios empresários. Soluções em consultoria, recrutamento, gestão estratégica, departamento fiscal e pessoal.',
+  'home' => 'Control Consultoria descomplica a gestão empresarial para pequenos e médios empresários. Soluções em consultoria, recrutamento, gestão estratégica e pessoal.',
   'sobre' => 'Conheça a história da Control Consultoria, fundada por Viviane Andrade em 2019. Saiba como descomplicamos a gestão empresarial.',
-  'servicos' => 'Conheça todos os serviços da Control Consultoria: consultoria empresarial, recrutamento e seleção, gestão estratégica, departamento fiscal e departamento pessoal.',
+  'servicos' => 'Conheça todos os serviços da Control Consultoria: consultoria empresarial, recrutamento e seleção, gestão estratégica, consultoria humanizada e departamento pessoal.',
   'contato' => 'Entre em contato com a Control Consultoria. WhatsApp, e-mail, Instagram e LinkedIn. Estamos prontos para atender sua empresa.',
   'consultoria-empresarial' => 'Consultoria empresarial com soluções estratégicas em gestão, processos e governança. Transforme seu negócio com a Control Consultoria.',
   'recrutamento-selecao' => 'Processo seletivo especializado com análise de perfil, triagem curricular e assessments. Encontre os melhores talentos com a Control Consultoria.',
   'gestao-estrategica' => 'Transforme dados em decisões estratégicas. Gestão de custos, relatórios gerenciais e planejamento financeiro com a Control Consultoria.',
-  'departamento-fiscal' => 'Planejamento tributário, apuração de impostos e obrigações acessórias. Gestão fiscal completa com a Control Consultoria.',
+  'consultoria-humanizada' => 'Autoconhecimento, desenvolvimento pessoal e qualidade de vida emocional para empresários e profissionais. Consultoria humanizada com a Control Consultoria.',
   'departamento-pessoal' => 'Gestão de folha de pagamento, admissão, rescisão e eSocial. Departamento pessoal completo com a Control Consultoria.',
   'treinamento-desenvolvimento' => 'Programas de treinamento corporativo em liderança, atendimento, comunicação e gestão. Capacite sua equipe com a Control Consultoria.',
   default => 'Control Consultoria - Descomplicando a vida do empresário.',
@@ -55,7 +56,7 @@ $pageCanonical = ($page === 'home')
   ? (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $baseUrl . '/'
   : (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . '://' . $_SERVER['HTTP_HOST'] . $baseUrl . '/' . $page;
 
-$servicePages = ['consultoria-empresarial', 'recrutamento-selecao', 'gestao-estrategica', 'departamento-fiscal', 'departamento-pessoal', 'treinamento-desenvolvimento'];
+$servicePages = ['consultoria-empresarial', 'recrutamento-selecao', 'gestao-estrategica', 'consultoria-humanizada', 'departamento-pessoal', 'treinamento-desenvolvimento'];
 
 $breadcrumbItems = [['name' => 'Home', 'url' => $baseUrl . '/']];
 
@@ -71,7 +72,7 @@ if ($page === 'sobre') {
     'consultoria-empresarial' => 'Consultoria Empresarial',
     'recrutamento-selecao' => 'Recrutamento & Seleção',
     'gestao-estrategica' => 'Gestão Estratégica',
-    'departamento-fiscal' => 'Departamento Fiscal',
+    'consultoria-humanizada' => 'Consultoria Humanizada',
     'departamento-pessoal' => 'Departamento Pessoal',
     'treinamento-desenvolvimento' => 'Treinamento & Desenvolvimento',
   ];

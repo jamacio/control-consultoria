@@ -2,7 +2,6 @@
   'consultoria' => 'Consultoria Empresarial',
   'recrutamento' => 'Recrutamento & Seleção',
   'gestao' => 'Gestão Estratégica',
-  'fiscal' => 'Departamento Fiscal',
   'pessoal' => 'Departamento Pessoal',
   'treinamento' => 'Treinamento & Desenvolvimento',
   'outro' => 'Outro',
@@ -89,7 +88,6 @@
               <option value="consultoria">Consultoria Empresarial</option>
               <option value="recrutamento">Recrutamento & Seleção</option>
               <option value="gestao">Gestão Estratégica</option>
-              <option value="fiscal">Departamento Fiscal</option>
               <option value="pessoal">Departamento Pessoal</option>
               <option value="treinamento">Treinamento & Desenvolvimento</option>
               <option value="outro">Outro</option>
@@ -110,7 +108,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const subjects = {
     'consultoria': 'Consultoria Empresarial', 'recrutamento': 'Recrutamento & Seleção',
-    'gestao': 'Gestão Estratégica', 'fiscal': 'Departamento Fiscal',
+    'gestao': 'Gestão Estratégica',
     'pessoal': 'Departamento Pessoal', 'treinamento': 'Treinamento & Desenvolvimento', 'outro': 'Outro'
   };
   const name = this.name.value.trim();
