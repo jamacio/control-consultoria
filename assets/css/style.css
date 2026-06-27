@@ -1916,3 +1916,112 @@ input, textarea, select {
     padding: 28px 20px;
   }
 }
+
+/* ============= INSTAGRAM FEED ============= */
+.instagram-section {
+  background: var(--bg);
+  position: relative;
+}
+
+.instagram-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-hover), transparent);
+}
+
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.instagram-card {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  aspect-ratio: 1;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.instagram-card:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+}
+
+.instagram-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.instagram-card:hover img {
+  transform: scale(1.05);
+}
+
+.instagram-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(26, 26, 46, 0.95) 0%, rgba(26, 26, 46, 0.3) 40%, transparent 60%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.instagram-card:hover .instagram-overlay {
+  opacity: 1;
+}
+
+.instagram-overlay .instagram-caption {
+  font-size: 0.8rem;
+  color: var(--text);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.instagram-overlay .instagram-icon {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  color: white;
+  font-size: 1.2rem;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.instagram-follow {
+  text-align: center;
+  margin-top: 40px;
+}
+
+.instagram-follow p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 768px) {
+  .instagram-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .instagram-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+  }
+}

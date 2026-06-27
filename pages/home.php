@@ -192,6 +192,38 @@
   </div>
 </section>
 
+<?php
+require_once __DIR__ . '/../partials/instagram-feed.php';
+$instagramPosts = getInstagramPosts();
+?>
+
+<?php if (!empty($instagramPosts)): ?>
+<section class="instagram-section section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="section-tag"><i class="fab fa-instagram"></i> Siga-nos</span>
+      <h2 class="section-title">Últimos <span class="gradient-text">Posts</span> do Instagram</h2>
+      <p class="section-text">Acompanhe nosso conteúdo sobre gestão, negócios e desenvolvimento empresarial.</p>
+    </div>
+
+    <div class="instagram-grid">
+      <?php foreach ($instagramPosts as $post): ?>
+      <a href="https://www.instagram.com/controlconsultoria1/" target="_blank" rel="noopener" class="instagram-card reveal">
+        <img src="<?= $baseUrl ?>/<?= $post['url'] ?>" alt="Post do Instagram" loading="lazy">
+      </a>
+      <?php endforeach; ?>
+    </div>
+
+    <div class="instagram-follow">
+      <p>Acompanhe dicas, conteúdos exclusivos e novidades todos os dias.</p>
+      <a href="https://www.instagram.com/controlconsultoria1/" target="_blank" rel="noopener" class="btn btn-primary">
+        <i class="fab fa-instagram"></i> Seguir no Instagram
+      </a>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
 <section class="cta-section section">
   <div class="container">
     <div class="cta-card reveal">
