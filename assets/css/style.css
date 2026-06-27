@@ -45,10 +45,26 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img { max-width: 100%; height: auto; display: block; }
-a { text-decoration: none; color: inherit; }
-ul { list-style: none; }
-button { cursor: pointer; font-family: inherit; }
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
 input, textarea, select {
   font-family: inherit;
   font-size: inherit;
@@ -120,8 +136,14 @@ input, textarea, select {
   overflow: hidden;
 }
 
-.btn i { font-size: 0.9rem; transition: transform var(--transition); }
-.btn:hover i { transform: translateX(4px); }
+.btn i {
+  font-size: 0.9rem;
+  transition: transform var(--transition);
+}
+
+.btn:hover i {
+  transform: translateX(4px);
+}
 
 .btn-primary {
   background: linear-gradient(135deg, var(--secondary), var(--secondary-dark));
@@ -342,8 +364,15 @@ input, textarea, select {
     transform: translateY(100vh) scale(0);
     opacity: 0;
   }
-  10% { opacity: 0.6; }
-  90% { opacity: 0.6; }
+
+  10% {
+    opacity: 0.6;
+  }
+
+  90% {
+    opacity: 0.6;
+  }
+
   100% {
     transform: translateY(-10vh) scale(1);
     opacity: 0;
@@ -359,7 +388,9 @@ input, textarea, select {
   z-index: 1;
 }
 
-.hero-content { max-width: 580px; }
+.hero-content {
+  max-width: 580px;
+}
 
 .hero-badge {
   display: inline-block;
@@ -412,8 +443,13 @@ input, textarea, select {
 }
 
 @keyframes bounceDown {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(10px); }
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(10px);
+  }
 }
 
 .hero-visual {
@@ -494,8 +530,15 @@ input, textarea, select {
 }
 
 @keyframes glowPulse {
-  0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.5); opacity: 1; }
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
 }
 
 .hero-stats {
@@ -750,8 +793,13 @@ input, textarea, select {
   transition: var(--transition);
 }
 
-.service-link i { transition: transform var(--transition); }
-.service-link:hover i { transform: translateX(4px); }
+.service-link i {
+  transition: transform var(--transition);
+}
+
+.service-link:hover i {
+  transform: translateX(4px);
+}
 
 /* ============= NUMBERS ============= */
 .numbers-section {
@@ -1401,8 +1449,13 @@ input, textarea, select {
 }
 
 @keyframes pulseWhatsApp {
-  0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
-  50% { box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7); }
+  0%, 100% {
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  }
+
+  50% {
+    box-shadow: 0 4px 30px rgba(37, 211, 102, 0.7);
+  }
 }
 
 /* ============= REVEAL ANIMATIONS ============= */
@@ -1417,15 +1470,36 @@ input, textarea, select {
   transform: translateY(0);
 }
 
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
-.reveal-delay-5 { transition-delay: 0.5s; }
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+
+.reveal-delay-4 {
+  transition-delay: 0.4s;
+}
+
+.reveal-delay-5 {
+  transition-delay: 0.5s;
+}
 
 @keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ============= RESPONSIVE ============= */
@@ -1435,7 +1509,9 @@ input, textarea, select {
     text-align: center;
   }
 
-  .hero-content { max-width: 100%; }
+  .hero-content {
+    max-width: 100%;
+  }
 
   .hero-actions {
     justify-content: center;
@@ -1467,7 +1543,9 @@ input, textarea, select {
 }
 
 @media (max-width: 768px) {
-  .section { padding: 60px 0; }
+  .section {
+    padding: 60px 0;
+  }
 
   .section-title {
     font-size: 2rem;
@@ -1519,6 +1597,8 @@ input, textarea, select {
     display: flex;
     position: relative;
     z-index: 1002;
+    background: transparent;
+    border: none;
   }
 
   .services-grid {
@@ -1881,6 +1961,7 @@ input, textarea, select {
   .service-intro {
     grid-template-columns: 1fr;
   }
+
   .service-features-grid {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -1890,9 +1971,11 @@ input, textarea, select {
   .service-features-grid {
     grid-template-columns: 1fr;
   }
+
   .service-benefits-list {
     grid-template-columns: 1fr;
   }
+
   .service-intro-content h2 {
     font-size: 1.8rem;
   }

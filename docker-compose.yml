@@ -1,7 +1,6 @@
 services:
   app:
-    image: php:8.5-apache
-    ports:
-      - "4000:80"
+    build: .
+    network_mode: host
     volumes:
       - .:/var/www/html
