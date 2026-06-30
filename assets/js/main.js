@@ -1,31 +1,23 @@
 document.addEventListener('DOMContentLoaded', () => {
   initNav();
   initCursor();
-  initParticles();
-  initReveal();
+  initParticles('heroParticles');
+  initAnimations();
   initCounters();
+  initTilt();
+  initParallaxOrbs();
+  initScrollProgress();
   initForm();
 });
 
-/* ============= NAVIGATION ============= */
 function initNav() {
   const header = document.getElementById('header');
   const navToggle = document.getElementById('navToggle');
   const navLinks = document.querySelector('.nav-links');
   const links = navLinks?.querySelectorAll('a');
 
-  let lastScroll = 0;
-
   window.addEventListener('scroll', () => {
-    const currentScroll = window.scrollY;
-
-    if (currentScroll > 50) {
-      header?.classList.add('scrolled');
-    } else {
-      header?.classList.remove('scrolled');
-    }
-
-    lastScroll = currentScroll;
+    header?.classList.toggle('scrolled', window.scrollY > 50);
   });
 
   navToggle?.addEventListener('click', () => {
@@ -43,7 +35,6 @@ function initNav() {
   });
 }
 
-/* ============= CURSOR FOLLOWER ============= */
 function initCursor() {
   const cursor = document.getElementById('cursorFollower');
   if (!cursor) return;
@@ -56,11 +47,11 @@ function initCursor() {
     mouseY = e.clientY;
   });
 
-  document.querySelectorAll('a, button, input, textarea, select').forEach(el => {
+  document.querySelectorAll('a, button, input, textarea, select, [data-tilt]').forEach(el => {
     el.addEventListener('mouseenter', () => {
       cursor.style.width = '60px';
       cursor.style.height = '60px';
-      cursor.style.background = 'rgba(212, 168, 83, 0.08)';
+      cursor.style.background = 'rgba(135, 213, 103, 0.08)';
     });
     el.addEventListener('mouseleave', () => {
       cursor.style.width = '40px';
@@ -76,17 +67,14 @@ function initCursor() {
     cursor.style.top = cursorY + 'px';
     requestAnimationFrame(animateCursor);
   }
-
   animateCursor();
 }
 
-/* ============= PARTICLES ============= */
-function initParticles() {
-  const container = document.getElementById('heroParticles');
+function initParticles(containerId) {
+  const container = document.getElementById(containerId);
   if (!container) return;
 
   const count = Math.min(30, Math.floor(window.innerWidth / 40));
-
   for (let i = 0; i < count; i++) {
     const particle = document.createElement('div');
     particle.className = 'particle';
@@ -100,39 +88,43 @@ function initParticles() {
   }
 }
 
-/* ============= SCROLL REVEAL ============= */
-function initReveal() {
-  const revealElements = document.querySelectorAll('.reveal');
-
-  if (!revealElements.length) return;
+function initAnimations() {
+  const animElements = document.querySelectorAll('[data-anim]');
+  if (!animElements.length) return;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
+      const el = entry.target;
+      const anim = el.dataset.anim;
+      const delay = parseInt(el.dataset.delay) || 0;
+
       if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
+        setTimeout(() => {
+          el.classList.add('anim-' + anim);
+          el.classList.add('anim-visible');
+        }, delay);
+      } else {
+        el.classList.remove('anim-' + anim);
+        el.classList.remove('anim-visible');
       }
     });
   }, {
     threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
+    rootMargin: '0px 0px -60px 0px'
   });
 
-  revealElements.forEach(el => observer.observe(el));
+  animElements.forEach(el => observer.observe(el));
 }
 
-/* ============= COUNTER ANIMATION ============= */
 function initCounters() {
   const counters = document.querySelectorAll('.counter');
-
   if (!counters.length) return;
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const counter = entry.target;
-        const target = parseInt(counter.dataset.target);
-        animateCounter(counter, target);
+        animateCounter(counter, parseInt(counter.dataset.target));
         observer.unobserve(counter);
       }
     });
@@ -151,25 +143,69 @@ function animateCounter(element, target) {
   const timer = setInterval(() => {
     step++;
     current = Math.min(current + increment, target);
-
-    if (target >= 1000) {
-      element.textContent = Math.floor(current / 1000) + (current % 1000 >= 500 ? '.5' : '');
-    } else {
-      element.textContent = Math.floor(current);
-    }
-
+    element.textContent = Math.floor(current);
     if (step >= steps) {
-      element.textContent = target >= 1000 ? (target / 1000) + 'mil' : target;
+      element.textContent = target;
       clearInterval(timer);
     }
   }, duration / steps);
 }
 
-/* ============= FORM ============= */
+function initTilt() {
+  const tiltElements = document.querySelectorAll('[data-tilt]');
+  if (!tiltElements.length) return;
+
+  tiltElements.forEach(el => {
+    el.addEventListener('mousemove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const centerX = rect.width / 2;
+      const centerY = rect.height / 2;
+      const rotateX = ((y - centerY) / centerY) * -6;
+      const rotateY = ((x - centerX) / centerX) * 6;
+      el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+    });
+
+    el.addEventListener('mouseleave', () => {
+      el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+    });
+  });
+}
+
+function initParallaxOrbs() {
+  const orbs = document.querySelectorAll('.parallax-orb');
+  if (!orbs.length) return;
+
+  function onScroll() {
+    orbs.forEach(orb => {
+      const speed = parseFloat(orb.dataset.parallaxSpeed) || 0.1;
+      const rect = orb.parentElement.getBoundingClientRect();
+      const viewportCenter = window.innerHeight / 2;
+      const elementCenter = rect.top + rect.height / 2;
+      const offset = (elementCenter - viewportCenter) * speed;
+      orb.style.transform = 'translateY(' + (offset * -1) + 'px)';
+    });
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+
+function initScrollProgress() {
+  const bar = document.getElementById('scrollProgress');
+  if (!bar) return;
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (scrollTop / docHeight) * 100 + '%';
+  });
+}
+
 function initForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
-
   const submitBtn = form.querySelector('button[type="submit"]');
   if (!submitBtn) return;
 
@@ -179,7 +215,6 @@ function initForm() {
   });
 }
 
-/* ============= SMOOTH SCROLL FOR ANCHOR LINKS ============= */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', (e) => {
     const targetId = anchor.getAttribute('href');

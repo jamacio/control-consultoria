@@ -42,6 +42,8 @@
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/fill/style.css" media="print" onload="this.media='all'">
   <link rel="icon" type="image/x-icon" href="<?= $baseUrl ?>/favicon.ico">
   <link rel="apple-touch-icon" href="<?= $baseUrl ?>/favicon.ico">
   <link rel="stylesheet" href="<?= $baseUrl ?>/assets/css/style.css">
@@ -163,9 +165,9 @@
     <nav class="nav container" aria-label="Navegação principal">
       <a href="<?= $baseUrl ?>/" class="logo" aria-label="Control Consultoria - Página inicial">
         <img src="<?= $baseUrl ?>/assets/images/logo-control.png" alt="Control Consultoria - Logotipo" class="logo-img" width="40" height="40" onerror="this.style.display='none'">
-        <span class="logo-icon" style="display:none"><i class="fas fa-chart-line"></i></span>
+
         <span class="logo-text">Control <span class="logo-accent">Consultoria</span></span>
-      </a>
+</a>
 
       <button class="nav-toggle" id="navToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
         <span></span>

@@ -31,17 +31,17 @@
       </div>
       <div class="story-values">
         <div class="value-card">
-          <div class="value-icon"><i class="fas fa-bullseye"></i></div>
+          
           <h3>Missão</h3>
           <p>Transformar a consultoria em uma aliada estratégica para o sucesso dos nossos clientes.</p>
         </div>
         <div class="value-card">
-          <div class="value-icon"><i class="fas fa-eye"></i></div>
+          
           <h3>Visão</h3>
           <p>Ser referência em consultoria empresarial no Brasil, reconhecida pela excelência e inovação.</p>
         </div>
         <div class="value-card">
-          <div class="value-icon"><i class="fas fa-heart"></i></div>
+          
           <h3>Valores</h3>
           <p>Ética, transparência, inovação, compromisso com o cliente e responsabilidade.</p>
         </div>
@@ -84,7 +84,7 @@
       <div class="cta-actions">
         <a href="https://wa.me/5511961371183" target="_blank" rel="noopener" class="btn btn-whatsapp">
           <i class="fab fa-whatsapp"></i> Fale Conosco
-        </a>
+</a>
         <a href="<?= $baseUrl ?>/contato" class="btn btn-outline">Outros Contatos</a>
       </div>
     </div>
