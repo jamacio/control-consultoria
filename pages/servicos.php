@@ -11,93 +11,93 @@
 <section class="services-detailed section">
   <div class="container">
     <div class="services-list">
-      <div class="service-detailed-card reveal" id="consultoria">
+      <div class="service-detailed-card reveal" id="consultoria" onclick="window.location='<?= $baseUrl ?>/consultoria-empresarial'" style="cursor:pointer">
         
         <div class="service-detailed-content">
           <h2>Consultoria Empresarial</h2>
           <p>Desde <strong>2019</strong>, a <strong>Control Consultoria</strong> atua como parceira estratégica de empresas de diversos segmentos, oferecendo soluções em gestão empresarial, Recursos Humanos, recrutamento e seleção, gestão estratégica e desenvolvimento de processos. Nosso trabalho é transformar desafios em oportunidades, trazendo organização, segurança e eficiência para o dia a dia das empresas.</p>
           <ul class="service-features">
-            <li> Desenvolvimento de negócios</li>
-            <li> Gestão operacional</li>
-            <li> Arquitetura corporativa</li>
-            <li> Estratégia e gestão de TI</li>
+            <li>Desenvolvimento de negócios</li>
+            <li>Gestão operacional</li>
+            <li>Arquitetura corporativa</li>
+            <li>Estratégia e gestão de TI</li>
           </ul>
-          <a href="<?= $baseUrl ?>/consultoria-empresarial" class="service-link" style="margin-top:16px;display:inline-flex">Ver página completa</a>
+          <a href="<?= $baseUrl ?>/consultoria-empresarial" class="service-link" onclick="event.stopPropagation()">Saiba mais</a>
         </div>
       </div>
 
-      <div class="service-detailed-card reveal" id="recrutamento">
+      <div class="service-detailed-card reveal" id="recrutamento" onclick="window.location='<?= $baseUrl ?>/recrutamento-selecao'" style="cursor:pointer">
         
         <div class="service-detailed-content">
           <h2>Recrutamento & Seleção</h2>
           <p>Encontre os melhores talentos para sua empresa com nosso processo seletivo especializado. Cuidamos de todo o processo, desde a triagem até a contratação, garantindo o fit cultural e técnico ideal para sua organização.</p>
           <ul class="service-features">
-            <li> Análise de perfil</li>
-            <li> Triagem curricular</li>
-            <li> Entrevistas comportamentais</li>
-            <li> Assessments</li>
+            <li>Análise de perfil</li>
+            <li>Triagem curricular</li>
+            <li>Entrevistas comportamentais</li>
+            <li>Assessments</li>
           </ul>
-          <a href="<?= $baseUrl ?>/recrutamento-selecao" class="service-link" style="margin-top:16px;display:inline-flex">Ver página completa</a>
+          <a href="<?= $baseUrl ?>/recrutamento-selecao" class="service-link" onclick="event.stopPropagation()">Saiba mais</a>
         </div>
       </div>
 
-      <div class="service-detailed-card reveal" id="contabil">
+      <div class="service-detailed-card reveal" id="contabil" onclick="window.location='<?= $baseUrl ?>/gestao-estrategica'" style="cursor:pointer">
         
         <div class="service-detailed-content">
           <h2>Gestão Estratégica</h2>
           <p>Transforme informações em decisões estratégicas. Na <strong>Control Consultoria</strong>, trabalhamos em parceria com a contabilidade da sua empresa, transformando dados e números em estratégias de gestão. Nosso foco é apoiar o empresário na organização dos processos, no desenvolvimento da equipe e na tomada de decisões que impulsionam o crescimento sustentável do negócio.</p>
           <ul class="service-features">
-            <li> Análise de demonstrativos financeiros</li>
-            <li> Planejamento financeiro estratégico</li>
-            <li> Relatórios gerenciais personalizados</li>
-            <li> Indicadores de desempenho (KPIs)</li>
+            <li>Análise de demonstrativos financeiros</li>
+            <li>Planejamento financeiro estratégico</li>
+            <li>Relatórios gerenciais personalizados</li>
+            <li>Indicadores de desempenho (KPIs)</li>
           </ul>
-          <a href="<?= $baseUrl ?>/gestao-estrategica" class="service-link" style="margin-top:16px;display:inline-flex">Ver página completa</a>
+          <a href="<?= $baseUrl ?>/gestao-estrategica" class="service-link" onclick="event.stopPropagation()">Saiba mais</a>
         </div>
       </div>
 
-      <div class="service-detailed-card reveal" id="humanizada">
+      <div class="service-detailed-card reveal" id="humanizada" onclick="window.location='<?= $baseUrl ?>/consultoria-humanizada'" style="cursor:pointer">
         
         <div class="service-detailed-content">
           <h2>Consultoria Humanizada</h2>
           <p>Parte consultora e parte humanizada, trabalhamos com gerentes, empreendedores e pessoas comuns, promovendo autoconhecimento e qualidade de vida emocional para transformar desafios em crescimento.</p>
           <ul class="service-features">
-            <li> Desenvolvimento pessoal e profissional</li>
-            <li> Conteúdo sobre gestão e empreendedorismo</li>
-            <li> Dicas de carreira e liderança</li>
-            <li> Comunidade de aprendizado contínuo</li>
+            <li>Desenvolvimento pessoal e profissional</li>
+            <li>Conteúdo sobre gestão e empreendedorismo</li>
+            <li>Dicas de carreira e liderança</li>
+            <li>Comunidade de aprendizado contínuo</li>
           </ul>
-          <a href="<?= $baseUrl ?>/consultoria-humanizada" class="service-link" style="margin-top:16px;display:inline-flex">Ver página completa</a>
+          <a href="<?= $baseUrl ?>/consultoria-humanizada" class="service-link" onclick="event.stopPropagation()">Saiba mais</a>
         </div>
       </div>
 
-      <div class="service-detailed-card reveal" id="treinamento">
+      <div class="service-detailed-card reveal" id="treinamento" onclick="window.location='<?= $baseUrl ?>/treinamento-desenvolvimento'" style="cursor:pointer">
         
         <div class="service-detailed-content">
           <h2>Treinamento & Desenvolvimento</h2>
           <p>Invista no desenvolvimento da sua equipe com programas de treinamento personalizados. Na <strong>Control Consultoria</strong>, capacitamos seus colaboradores para melhorar a comunicação, a liderança, a produtividade e o alinhamento com os objetivos estratégicos do negócio.</p>
           <ul class="service-features">
-            <li> Treinamento de liderança</li>
-            <li> Atendimento ao cliente</li>
-            <li> Gestão do tempo</li>
-            <li> Comunicação interna</li>
+            <li>Treinamento de liderança</li>
+            <li>Atendimento ao cliente</li>
+            <li>Gestão do tempo</li>
+            <li>Comunicação interna</li>
           </ul>
-          <a href="<?= $baseUrl ?>/treinamento-desenvolvimento" class="service-link" style="margin-top:16px;display:inline-flex">Ver página completa</a>
+          <a href="<?= $baseUrl ?>/treinamento-desenvolvimento" class="service-link" onclick="event.stopPropagation()">Saiba mais</a>
         </div>
       </div>
       
-      <div class="service-detailed-card reveal" id="pessoal">
+      <div class="service-detailed-card reveal" id="pessoal" onclick="window.location='<?= $baseUrl ?>/departamento-pessoal'" style="cursor:pointer">
         
         <div class="service-detailed-content">
           <h2>Departamento Pessoal</h2>
           <p>Tratamos de todas as questões relacionadas aos colaboradores da sua empresa, acompanhando as atualizações da <strong>legislação trabalhista</strong> para prevenir problemas futuros.</p>
           <ul class="service-features">
-            <li> Folha de pagamento</li>
-            <li> Admissão e rescisão</li>
-            <li> Encargos trabalhistas</li>
-            <li> eSocial completo</li>
+            <li>Folha de pagamento</li>
+            <li>Admissão e rescisão</li>
+            <li>Encargos trabalhistas</li>
+            <li>eSocial completo</li>
           </ul>
-          <a href="<?= $baseUrl ?>/departamento-pessoal" class="service-link" style="margin-top:16px;display:inline-flex">Ver página completa</a>
+          <a href="<?= $baseUrl ?>/departamento-pessoal" class="service-link" onclick="event.stopPropagation()">Saiba mais</a>
         </div>
       </div>
     </div>

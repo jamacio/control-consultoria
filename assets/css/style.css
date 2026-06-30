@@ -1208,15 +1208,48 @@ input, textarea, select {
 .service-features {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 6px 16px;
 }
 
 .service-features li {
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(135, 213, 103, 0.75);
+  position: relative;
+  padding-left: 0;
+}
+
+.service-features li::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  min-width: 5px;
+  background: var(--secondary);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+
+.service-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   font-size: 0.9rem;
-  color: var(--text-muted);
+  font-weight: 600;
+  color: var(--secondary);
+  text-decoration: none;
+  padding: 8px 20px;
+  border: 1px solid rgba(135, 213, 103, 0.2);
+  border-radius: 100px;
+  transition: all 0.3s ease;
+}
+
+.service-link:hover {
+  background: var(--secondary);
+  color: var(--primary);
+  border-color: var(--secondary);
 }
 
 /* ============= SERVICES BANNER ============= */
