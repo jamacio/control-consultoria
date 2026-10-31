@@ -350,6 +350,26 @@ app.get(['/', '/:page'], (req, res, next) => {
 
 app.use(express.static(PUBLIC_DIR, { etag: false, maxAge: 0 }));
 
+// O chat só entende JSON: erro em /api e /admin (JSON inválido, imagem grande demais, exceção) volta em JSON, não na página HTML do Express
+app.use(['/api', '/admin'], (req, res) => res.status(404).json({ error: 'Endereço não encontrado' }));
+app.use((err, req, res, next) => {
+  if (!/^\/(api|admin)\b/.test(req.path)) return next(err);
+  console.error(err);
+  const status = err.status ?? err.statusCode ?? 500;
+  const semPermissao = err.code === 'EACCES' || err.code === 'EPERM';
+  res.status(status).json({ error: status === 413 ? 'Arquivo grande demais'
+    : semPermissao ? 'O servidor não tem permissão para salvar as alterações do site'
+      : status < 500 ? 'Pedido inválido' : 'Erro no servidor, tente de novo' });
+});
+
+// O container roda como o usuário node (uid 1000): se public/ for de outro dono (ex: root), o chat não consegue salvar nada
+const semEscrita = listSiteFiles().map((f) => path.join(PUBLIC_DIR, f)).concat(PUBLIC_DIR, path.join(PUBLIC_DIR, 'partials'))
+  .filter((f) => { try { fs.accessSync(f, fs.constants.W_OK); return false; } catch { return fs.existsSync(f); } });
+if (semEscrita.length) {
+  console.log(`[permissão] sem permissão de escrita em ${semEscrita.length} arquivo(s) de public/ (ex: ${path.relative(__dirname, semEscrita[0])}).`
+    + ` No servidor rode: chown -R ${process.getuid?.()}:${process.getgid?.()} public`);
+}
+
 if (!fs.existsSync(path.join(PUBLIC_DIR, 'site.css'))) console.log('[css] public/site.css não existe: rode npm run build:css');
 
 app.listen(PORT, () => {
