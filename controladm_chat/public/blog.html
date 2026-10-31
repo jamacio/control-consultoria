@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Novidades da Control Consultoria e dicas de gestão para o seu negócio.">
+    <title>Blog - Control Consultoria</title>
+    <link rel="icon" href="/favicon.ico">
+    <link rel="preload" href="/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="/fonts/playfair-display.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="stylesheet" href="/cores.css">
+    <link rel="stylesheet" href="/site.css">
+  </head>
+  <body class="overflow-x-hidden bg-bg font-body leading-relaxed text-fg antialiased">
+    <!-- @header -->
+    <main class="[&>section:first-child:not([class*=pt-])]:pt-32">
+      <section class="mx-auto max-w-6xl px-6 pt-40 pb-20">
+        <div id="blog-topo">
+          <h1 class="font-display text-4xl leading-tight font-semibold tracking-tight text-balance sm:text-5xl">Blog</h1>
+          <p class="mt-4 max-w-prose text-lg leading-relaxed text-muted">Novidades da Control Consultoria e dicas de gestão para o seu negócio.</p>
+        </div>
+        <div class="mt-10" id="blog" aria-live="polite">
+          <p class="text-muted">Carregando notícias…</p>
+        </div>
+      </section>
+    </main>
+    <!-- @footer -->
+    <script>
+      // As notícias ficam em /blog.json (o chat do painel cria, edita e apaga ali). Esta página só lê e mostra:
+      // /blog lista, /blog?pagina=2 pagina, /blog/<slug> abre uma notícia (o slug de cada uma fica no blog.json).
+      const POR_PAGINA = 6;
+      const CAPA = '/img/blog-capa.svg';
+      const TITULO = 'Nova notícia';
+      const TEXTO = 'Mais detalhes em breve.';
+      const area = document.getElementById('blog');
+      const topo = document.getElementById('blog-topo');
+      const params = new URLSearchParams(location.search);
+
+      const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+      const texto = (v, padrao) => (typeof v === 'string' && v.trim()) || padrao;
+      const imagem = (v) => (typeof v === 'string' && /^(\/|https?:\/\/)/.test(v.trim()) ? v.trim() : CAPA);
+      // Notícia escrita à mão sem slug: usa o título, do mesmo jeito que o painel gera
+      const slugify = (t) => t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 80).replace(/-$/, '');
+      const slugDe = (n) => texto(n.slug, '') || slugify(texto(n.titulo, '')) || String(n.id);
+      const urlDe = (n) => `/blog/${encodeURIComponent(slugDe(n))}`;
+      const paragrafos = (n) => texto(n.texto, TEXTO).split(/\n+/).map((p) => p.trim()).filter(Boolean);
+      const dataValida = (v) => typeof v === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(v);
+      const formatarData = (v) => {
+        const [a, m, d] = v.split('-').map(Number);
+        return new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' }).format(new Date(a, m - 1, d));
+      };
+      const dataHtml = (n, mostrar) => (mostrar && dataValida(n.data)
+        ? `<time class="text-sm text-muted" datetime="${n.data}">${formatarData(n.data)}</time>`
+        : '');
+      // Mais novas primeiro; no mesmo dia, a criada por último
+      const ordenar = (lista) => lista
+        .filter((n) => n && typeof n === 'object')
+        .sort((a, b) => String(b.data ?? '').localeCompare(String(a.data ?? '')) || (Number(b.id) || 0) - (Number(a.id) || 0));
+
+      // Imagem que não abre (apagada, endereço errado) vira a capa padrão
+      const capaNoErro = () => {
+        for (const img of area.querySelectorAll('img')) img.addEventListener('error', () => { img.src = CAPA; }, { once: true });
+      };
+
+      function cartao(n, mostrarData) {
+        return `
+          <article class="relative flex flex-col overflow-hidden rounded-2xl border border-border bg-surface/35 transition duration-300 hover:-translate-y-1 hover:border-accent/35">
+            <img class="aspect-video w-full bg-bg object-cover" src="${esc(imagem(n.imagem))}" alt="" loading="lazy">
+            <div class="flex flex-1 flex-col p-6">
+              ${dataHtml(n, mostrarData)}
+              <h2 class="mt-2 text-xl leading-snug font-semibold text-balance wrap-break-word">
+                <a class="rounded after:absolute after:inset-0 hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent" href="${urlDe(n)}">${esc(texto(n.titulo, TITULO))}</a>
+              </h2>
+              <p class="mt-2 line-clamp-3 leading-relaxed text-muted wrap-break-word">${esc(paragrafos(n)[0])}</p>
+            </div>
+          </article>`;
+      }
+
+      // Números das páginas: a primeira, a última e as vizinhas da atual; o resto vira "…"
+      function paginacao(atual, total) {
+        if (total < 2) return '';
+        const botao = 'inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-border px-4 font-medium hover:bg-surface-hover aria-[current=page]:border-accent aria-[current=page]:bg-accent aria-[current=page]:text-accent-on';
+        const link = (p, rotulo, extra = '') => `<a class="${botao}" href="/blog${p > 1 ? `?pagina=${p}` : ''}"${extra}>${rotulo}</a>`;
+        const itens = [];
+        if (atual > 1) itens.push(link(atual - 1, 'Anterior'));
+        let ultimo = 0;
+        for (let p = 1; p <= total; p++) {
+          if (p !== 1 && p !== total && Math.abs(p - atual) > 1) continue;
+          if (p - ultimo > 1) itens.push('<span class="px-1 text-muted" aria-hidden="true">…</span>');
+          itens.push(link(p, p, p === atual ? ' aria-current="page"' : ` aria-label="Página ${p}"`));
+          ultimo = p;
+        }
+        if (atual < total) itens.push(link(atual + 1, 'Próxima'));
+        return `<nav class="mt-12 flex flex-wrap items-center justify-center gap-2" aria-label="Páginas do blog">${itens.join('')}</nav>`;
+      }
+
+      function lista(noticias, mostrarData) {
+        if (!noticias.length) {
+          area.innerHTML = `
+            <div class="rounded-2xl border border-border bg-surface/35 px-6 py-12 text-center">
+              <h2 class="text-xl font-semibold">Ainda não há notícias</h2>
+              <p class="mx-auto mt-2 max-w-prose text-muted">As novidades aparecem aqui assim que forem publicadas.</p>
+              <a class="mt-6 inline-flex min-h-11 items-center rounded-full bg-linear-135 from-accent to-accent-dark px-6 font-semibold text-accent-on hover:opacity-90" href="/">Voltar para o início</a>
+            </div>`;
+          return;
+        }
+        const total = Math.ceil(noticias.length / POR_PAGINA);
+        const atual = Math.min(Math.max(parseInt(params.get('pagina'), 10) || 1, 1), total);
+        const pagina = noticias.slice((atual - 1) * POR_PAGINA, atual * POR_PAGINA);
+        area.innerHTML = `
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">${pagina.map((n) => cartao(n, mostrarData)).join('')}</div>
+          ${paginacao(atual, total)}`;
+        capaNoErro();
+      }
+
+      function noticia(noticias, slug, mostrarData) {
+        const posicao = noticias.findIndex((n) => slugDe(n) === slug);
+        const n = noticias[posicao];
+        topo.hidden = true;
+        if (!n) {
+          area.innerHTML = `
+            <div class="mx-auto max-w-3xl">
+              <h1 class="font-display text-3xl font-semibold tracking-tight">Notícia não encontrada</h1>
+              <p class="mt-3 text-lg text-muted">Ela pode ter sido apagada ou o endereço está incompleto.</p>
+              <a class="mt-6 inline-flex min-h-11 items-center rounded-full bg-linear-135 from-accent to-accent-dark px-6 font-semibold text-accent-on hover:opacity-90" href="/blog">Ver todas as notícias</a>
+            </div>`;
+          return;
+        }
+        const titulo = texto(n.titulo, TITULO);
+        document.title = `${titulo} - Control Consultoria`;
+        const voltar = Math.floor(posicao / POR_PAGINA) + 1;
+        area.innerHTML = `
+          <article class="mx-auto max-w-3xl">
+            <a class="inline-flex min-h-11 items-center gap-2 rounded-lg font-medium text-muted hover:text-fg" href="/blog${voltar > 1 ? `?pagina=${voltar}` : ''}">
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Todas as notícias
+            </a>
+            <div class="mt-6">${dataHtml(n, mostrarData)}</div>
+            <h1 class="mt-2 font-display text-4xl leading-tight font-semibold tracking-tight text-balance wrap-break-word sm:text-5xl">${esc(titulo)}</h1>
+            <img class="mt-8 aspect-video w-full rounded-3xl bg-surface object-cover" src="${esc(imagem(n.imagem))}" alt="${esc(titulo)}">
+            <div class="mt-8 max-w-prose space-y-5 text-lg leading-relaxed wrap-break-word">${paragrafos(n).map((p) => `<p>${esc(p)}</p>`).join('')}</div>
+          </article>`;
+        capaNoErro();
+      }
+
+      async function carregar() {
+        area.innerHTML = '<p class="text-muted">Carregando notícias…</p>';
+        const demora = setTimeout(() => {
+          area.innerHTML = '<p class="text-muted">Está demorando mais que o normal. Aguarde mais um pouco…</p>';
+        }, 15000);
+        try {
+          const res = await fetch('/blog.json', { cache: 'no-store' });
+          if (!res.ok) throw new Error(res.status);
+          const blog = await res.json();
+          clearTimeout(demora);
+          const noticias = ordenar(Array.isArray(blog.noticias) ? blog.noticias : []);
+          const mostrarData = blog.mostrarData !== false;
+          const aberta = location.pathname.match(/^\/blog\/([^/]+)/);
+          if (aberta) noticia(noticias, decodeURIComponent(aberta[1]), mostrarData);
+          else lista(noticias, mostrarData);
+        } catch {
+          clearTimeout(demora);
+          area.innerHTML = `
+            <div class="rounded-2xl border border-border bg-surface/35 px-6 py-12 text-center">
+              <h2 class="text-xl font-semibold">Não foi possível carregar as notícias</h2>
+              <p class="mx-auto mt-2 max-w-prose text-muted">Confira a sua conexão com a internet e tente de novo.</p>
+              <button class="mt-6 inline-flex min-h-11 items-center rounded-full bg-linear-135 from-accent to-accent-dark px-6 font-semibold text-accent-on hover:opacity-90" type="button" id="tentar">Tentar de novo</button>
+            </div>`;
+          document.getElementById('tentar').addEventListener('click', carregar);
+        }
+      }
+
+      carregar();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin · Login</title>
+    <style>
+      :root {
+        font-family: system-ui, sans-serif;
+        color: #1f2937;
+        background: #f3f4f6;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        box-sizing: border-box;
+      }
+
+      form {
+        width: min(100%, 22rem);
+        padding: 2rem;
+        background: white;
+        border-radius: 1rem;
+        box-shadow: 0 1rem 2.5rem rgb(31 41 55 / 10%);
+        display: grid;
+        gap: 1rem;
+      }
+
+      h1 {
+        margin: 0;
+        color: #2563eb;
+        font-size: 1.5rem;
+      }
+
+      label {
+        display: grid;
+        gap: 0.35rem;
+        font-size: 0.9rem;
+      }
+
+      input {
+        padding: 0.7rem;
+        border: 1px solid #d1d5db;
+        border-radius: 0.5rem;
+        font: inherit;
+      }
+
+      button {
+        padding: 0.75rem;
+        border: 0;
+        border-radius: 0.5rem;
+        background: #2563eb;
+        color: white;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      button:disabled {
+        opacity: 0.6;
+      }
+
+      .erro {
+        min-height: 1.2em;
+        margin: 0;
+        color: #dc2626;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="login">
+      <h1>Área administrativa</h1>
+      <label>Usuário <input name="username" autocomplete="username" required autofocus></label>
+      <label>Senha <input name="password" type="password" autocomplete="current-password" required></label>
+      <p class="erro" id="erro"></p>
+      <button type="submit">Entrar</button>
+    </form>
+
+    <script>
+      const form = document.getElementById('login');
+      const erro = document.getElementById('erro');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        erro.textContent = '';
+        form.querySelector('button').disabled = true;
+        try {
+          const res = await fetch('/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(Object.fromEntries(new FormData(form))),
+          });
+          if (res.ok) return location.reload();
+          erro.textContent = (await res.json()).error;
+        } catch {
+          erro.textContent = 'Erro de conexão';
+        }
+        form.querySelector('button').disabled = false;
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+/* Cores do site. CSS puro, carregado em toda página antes do site.css: o chat altera estes valores
+   direto, sem gerar o CSS de novo. As classes que usam as cores (bg-bg, text-fg, bg-accent...) estão no theme.css.
+   Identidade da Control Consultoria: roxo #373670 (--surface) e verde #87d567 (--accent) sobre o fundo #1a1a2e. */
+:root {
+  --bg: #1a1a2e;
+  --surface: #373670;
+  --surface-hover: #4a4988;
+  --fg: #e8e8e8;
+  --muted: #9ca3b5;
+  --border: #2a3637;
+  --accent: #87d567;
+  --accent-on: #373670;
+  --accent-light: #a3e08a;
+  --accent-dark: #6bc44a;
+}

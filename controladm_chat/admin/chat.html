@@ -1,0 +1,682 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Editar site</title>
+    <style>
+      :root {
+        --bg: #ffffff;
+        --fg: #1c1917;
+        --muted: #78716c;
+        --soft: #f5f5f4;
+        --border: #e7e5e4;
+        --accent: #0f766e;
+        --accent-on: #ffffff;
+        --erro-bg: #fef2f2;
+        --erro-fg: #991b1b;
+        color-scheme: light;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        color: var(--fg);
+        background: var(--bg);
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1c1b1a;
+          --fg: #f5f5f4;
+          --muted: #a8a29e;
+          --soft: #2a2826;
+          --border: #3a3734;
+          --accent: #2dd4bf;
+          --accent-on: #042f2e;
+          --erro-bg: #3b1515;
+          --erro-fg: #fecaca;
+          color-scheme: dark;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      /* Sem isso o display de #mensagens e #inicio vence o atributo hidden */
+      [hidden] {
+        display: none !important;
+      }
+
+      body {
+        height: 100dvh;
+        margin: 0;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        background: var(--bg);
+      }
+
+      button,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+
+      button {
+        cursor: pointer;
+      }
+
+      .icone {
+        width: 20px;
+        height: 20px;
+        flex: none;
+      }
+
+      /* Topo */
+      .topo {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+      }
+
+      .topo strong {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      .topo nav {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+
+      .topo a,
+      .topo button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        min-height: 2.5rem;
+        padding: 0 0.75rem;
+        border: 0;
+        border-radius: 0.6rem;
+        background: none;
+        color: var(--fg);
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+
+      .topo a:hover,
+      .topo button:hover {
+        background: var(--soft);
+      }
+
+      /* Conversa */
+      #conversa {
+        overflow-y: auto;
+        padding: 0 1rem;
+      }
+
+      .coluna {
+        width: 100%;
+        max-width: 46rem;
+        margin: 0 auto;
+      }
+
+      #mensagens {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem 0;
+      }
+
+      .msg {
+        line-height: 1.6;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+      }
+
+      .msg.user {
+        align-self: flex-end;
+        max-width: 80%;
+        padding: 0.6rem 1rem;
+        border-radius: 1.25rem;
+        background: var(--soft);
+      }
+
+      .msg.user img {
+        display: block;
+        max-width: 12rem;
+        max-height: 8rem;
+        margin-bottom: 0.4rem;
+        border-radius: 0.75rem;
+      }
+
+      .msg.bot {
+        align-self: flex-start;
+        display: flex;
+        gap: 0.75rem;
+      }
+
+      .msg.bot::before {
+        content: "";
+        flex: none;
+        width: 1.75rem;
+        height: 1.75rem;
+        margin-top: 0.05rem;
+        border-radius: 50%;
+        background: var(--accent);
+      }
+
+      .msg.bot.pensando .texto {
+        color: var(--muted);
+        animation: pulsar 1.4s ease-in-out infinite;
+      }
+
+      @keyframes pulsar {
+        50% { opacity: 0.45; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .msg.bot.pensando .texto { animation: none; }
+      }
+
+      .msg.erro .texto {
+        padding: 0.5rem 0.75rem;
+        border-radius: 0.75rem;
+        background: var(--erro-bg);
+        color: var(--erro-fg);
+      }
+
+      /* Cartão de retorno depois de uma alteração: o que mudou, onde e o botão para ver */
+      .msg .tag {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem 1rem;
+        margin-top: 0.6rem;
+        padding: 0.6rem 0.6rem 0.6rem 0.9rem;
+        border: 1px solid var(--border);
+        border-radius: 0.9rem;
+        font-size: 0.875rem;
+        line-height: 1.4;
+        white-space: normal;
+        color: var(--muted);
+      }
+
+      .msg .tag strong {
+        display: block;
+        color: var(--fg);
+        font-weight: 600;
+      }
+
+      .msg .tag a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        min-height: 2.5rem;
+        padding: 0 0.9rem;
+        border-radius: 999px;
+        background: var(--accent);
+        color: var(--accent-on);
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      .msg .tag a:hover {
+        opacity: 0.9;
+      }
+
+      .msg .tag .acoes {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      /* Desfazer: só na última resposta que alterou o site */
+      .msg .tag .desfazer {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        min-height: 2.5rem;
+        padding: 0 0.9rem;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--bg);
+        color: var(--fg);
+        font-weight: 600;
+      }
+
+      .msg .tag .desfazer:hover {
+        background: var(--soft);
+      }
+
+      /* Tela inicial */
+      #inicio {
+        display: grid;
+        place-items: center;
+        min-height: 100%;
+        text-align: center;
+      }
+
+      #inicio h1 {
+        margin: 0 0 1.5rem;
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .sugestoes {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+
+      .sugestoes button {
+        min-height: 2.75rem;
+        padding: 0 1rem;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: var(--bg);
+        font-size: 0.9rem;
+      }
+
+      .sugestoes button:hover {
+        background: var(--soft);
+      }
+
+      /* Caixa de mensagem */
+      .rodape {
+        padding: 0 1rem 0.75rem;
+      }
+
+      #form {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        padding: 0.5rem;
+        border: 1px solid var(--border);
+        border-radius: 1.5rem;
+        background: var(--bg);
+        box-shadow: 0 2px 12px rgb(0 0 0 / 6%);
+      }
+
+      #form:focus-within {
+        border-color: var(--muted);
+      }
+
+      #anexo {
+        display: none;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 0.25rem 0.5rem 0;
+      }
+
+      #anexo.ativo {
+        display: flex;
+      }
+
+      #anexo img {
+        width: 3.5rem;
+        height: 3.5rem;
+        object-fit: cover;
+        border-radius: 0.75rem;
+      }
+
+      #anexo button {
+        border: 0;
+        background: none;
+        color: var(--muted);
+        font-size: 0.85rem;
+        text-decoration: underline;
+      }
+
+      #form textarea {
+        width: 100%;
+        min-height: 2.75rem;
+        max-height: 12rem;
+        padding: 0.6rem 0.75rem 0.25rem;
+        border: 0;
+        outline: 0;
+        resize: none;
+        background: none;
+        line-height: 1.5;
+      }
+
+      .barra {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+      }
+
+      .barra button {
+        display: grid;
+        place-items: center;
+        width: 2.5rem;
+        height: 2.5rem;
+        border: 0;
+        border-radius: 50%;
+      }
+
+      #anexar {
+        background: none;
+        color: var(--muted);
+      }
+
+      #anexar:hover {
+        background: var(--soft);
+        color: var(--fg);
+      }
+
+      #enviar {
+        background: var(--fg);
+        color: var(--bg);
+      }
+
+      #enviar:disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
+
+      .aviso {
+        margin: 0.5rem 0 0;
+        text-align: center;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topo">
+      <strong>Editar site</strong>
+      <nav>
+        <a href="/" target="_blank" rel="noopener">
+          Ver site
+          <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>
+        </a>
+        <button id="desfazer" type="button" title="Desfazer a última alteração">
+          <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg>
+          Desfazer
+        </button>
+        <button id="sair" type="button">Sair</button>
+      </nav>
+    </header>
+
+    <main id="conversa">
+      <div class="coluna" id="mensagens" hidden></div>
+      <div class="coluna" id="inicio">
+        <div>
+          <h1>O que você quer mudar no site?</h1>
+          <div class="sugestoes">
+            <button type="button">Troca o título da página inicial</button>
+            <button type="button">Muda a cor principal para azul</button>
+            <button type="button">Adiciona uma seção de depoimentos</button>
+            <button type="button">Coloca o meu WhatsApp na página de contato</button>
+            <button type="button" data-texto="Cria uma notícia no blog. Título: [título]. Texto: [texto da notícia]">Cria, edita ou apaga notícias do blog</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="rodape">
+      <div class="coluna">
+        <form id="form">
+          <div id="anexo">
+            <img alt="Imagem anexada">
+            <button type="button" id="remover">Remover imagem</button>
+          </div>
+          <label class="sr-only" for="texto">Mensagem</label>
+          <textarea id="texto" rows="1" placeholder="Peça uma alteração no site…" autofocus></textarea>
+          <div class="barra">
+            <button type="button" id="anexar" title="Anexar imagem (logo, banner, foto)" aria-label="Anexar imagem">
+              <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 11-8.6 8.6a5.5 5.5 0 0 1-7.8-7.8l8.6-8.6a3.7 3.7 0 0 1 5.2 5.2l-8.6 8.6a1.8 1.8 0 0 1-2.6-2.6L15.5 7"/></svg>
+            </button>
+            <input type="file" id="arquivo" accept="image/png,image/jpeg,image/webp,image/gif" hidden>
+            <button type="submit" id="enviar" aria-label="Enviar" disabled>
+              <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+            </button>
+          </div>
+        </form>
+        <p class="aviso" id="info">A alteração vai direto para o site. Use “Desfazer” se não gostar.</p>
+      </div>
+    </footer>
+
+    <script>
+      const conversa = document.getElementById('conversa');
+      const mensagens = document.getElementById('mensagens');
+      const inicio = document.getElementById('inicio');
+      const form = document.getElementById('form');
+      const textarea = document.getElementById('texto');
+      const enviar = document.getElementById('enviar');
+      const arquivo = document.getElementById('arquivo');
+      const anexo = document.getElementById('anexo');
+      const info = document.getElementById('info');
+
+      let ocupado = false;
+      let imagem = null; // caminho da imagem anexada, já enviada ao servidor
+      let maxChars = 400;
+      let maxPostChars = 2000;
+      // Pedidos do blog trazem a notícia inteira e aceitam mais caracteres (o servidor confere igual)
+      const falaDoBlog = (t) => /\b(blog|noticias?|posts?|artigos?|publicac(ao|oes))\b/.test(t.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase());
+
+      async function api(url, options = {}) {
+        const res = await fetch(url, { headers: { 'Content-Type': 'application/json' }, ...options });
+        if (res.status === 401) location.reload();
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Erro');
+        return data;
+      }
+
+      function abrirConversa() {
+        inicio.hidden = true;
+        mensagens.hidden = false;
+      }
+
+      function addMsg(text, cls, img) {
+        abrirConversa();
+        const div = document.createElement('div');
+        div.className = `msg ${cls}`;
+        if (img) {
+          const el = document.createElement('img');
+          el.src = img;
+          el.alt = 'Imagem anexada';
+          div.append(el);
+        }
+        const span = document.createElement('span');
+        span.className = 'texto';
+        span.textContent = text;
+        div.append(span);
+        mensagens.append(div);
+        conversa.scrollTop = conversa.scrollHeight;
+        return div;
+      }
+
+      // Nome que o cliente entende para cada arquivo alterado
+      const nomeDe = (f) => ({
+        'index.html': 'Página inicial',
+        'partials/header.html': 'Cabeçalho',
+        'partials/footer.html': 'Rodapé',
+        'cores.css': 'Cores do site',
+        'blog.json': 'Notícias do blog',
+      })[f] ?? `Página ${f.replace(/\.html$/, '')}`;
+
+      function addTag(msg, titulo, files) {
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        const info = document.createElement('span');
+        const strong = document.createElement('strong');
+        strong.textContent = titulo;
+        info.append(strong, files.map(nomeDe).join(' · '));
+        const a = document.createElement('a');
+        a.href = urlDe(files);
+        a.target = '_blank';
+        a.rel = 'noopener';
+        a.innerHTML = 'Ver no site <svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg>';
+        const acoes = document.createElement('span');
+        acoes.className = 'acoes';
+        acoes.append(a);
+        tag.append(info, acoes);
+        msg.querySelector('.texto').append(tag);
+        return acoes;
+      }
+
+      // Botão Desfazer na resposta: fica só na mais recente que alterou o site
+      function addDesfazer(acoes) {
+        removerDesfazer();
+        const botao = document.createElement('button');
+        botao.type = 'button';
+        botao.className = 'desfazer';
+        botao.innerHTML = '<svg class="icone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg> Desfazer';
+        botao.addEventListener('click', desfazer);
+        acoes.prepend(botao);
+      }
+
+      const removerDesfazer = () => document.querySelectorAll('.msg .desfazer').forEach((b) => b.remove());
+
+      async function desfazer() {
+        try {
+          const { undone, files } = await api('/api/undo', { method: 'POST' });
+          removerDesfazer();
+          addTag(addMsg('Desfiz a última alteração.', 'bot'), `↩ Alteração #${undone} desfeita`, files);
+        } catch (err) {
+          addMsg(err.message, 'bot erro');
+        }
+      }
+
+      const atualizarBotao = () => (enviar.disabled = ocupado || !textarea.value.trim());
+
+      function mostrarRestantes(restantes) {
+        if (typeof restantes === 'number') info.textContent = `A alteração vai direto para o site. Restam ${restantes} pedidos hoje.`;
+      }
+
+      // A caixa cresce com o texto, como nas IAs web
+      textarea.addEventListener('input', () => {
+        textarea.style.height = 'auto';
+        textarea.style.height = `${textarea.scrollHeight}px`;
+        atualizarBotao();
+      });
+
+      // Enter envia, Shift+Enter quebra linha
+      textarea.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          if (!enviar.disabled) form.requestSubmit();
+        }
+      });
+
+      for (const b of document.querySelectorAll('.sugestoes button')) {
+        b.addEventListener('click', () => {
+          // data-texto: o botão mostra uma dica curta e põe um modelo para preencher
+          textarea.value = b.dataset.texto ?? b.textContent;
+          textarea.dispatchEvent(new Event('input'));
+          textarea.focus();
+          // Sugestão com [campo]: já seleciona o primeiro, para o cliente digitar por cima
+          const inicio = textarea.value.indexOf('[');
+          if (inicio >= 0) textarea.setSelectionRange(inicio, textarea.value.indexOf(']', inicio) + 1);
+        });
+      }
+
+      // A página que a alteração mudou, para o link "Ver no site"
+      const urlDe = (files) => {
+        const page = files.find((f) => /^[\w-]+\.html$/.test(f));
+        if (page) return `/${page.replace(/\.html$/, '').replace(/^index$/, '')}`;
+        return files.includes('blog.json') ? '/blog' : '/';
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const message = textarea.value.trim();
+        if (!message || ocupado) return;
+        const limite = falaDoBlog(message) ? maxPostChars : maxChars;
+        if (message.length > limite) {
+          addMsg(`A mensagem passou de ${limite} caracteres. Peça uma coisa por vez.`, 'bot erro');
+          return;
+        }
+
+        const img = imagem;
+        addMsg(message, 'user', img);
+        textarea.value = '';
+        textarea.style.height = 'auto';
+        limparAnexo();
+        ocupado = true;
+        atualizarBotao();
+        const resposta = addMsg('Alterando o site…', 'bot pensando');
+
+        try {
+          const { reply, change, restantes } = await api('/api/chat', {
+            method: 'POST',
+            body: JSON.stringify({ message, image: img ?? '' }),
+          });
+          resposta.classList.remove('pensando');
+          resposta.querySelector('.texto').textContent = reply;
+          if (change) addDesfazer(addTag(resposta, `✓ Alteração #${change.id} aplicada`, change.files));
+          mostrarRestantes(restantes);
+        } catch (err) {
+          resposta.classList.remove('pensando');
+          resposta.classList.add('erro');
+          resposta.querySelector('.texto').textContent = err.message;
+        }
+        ocupado = false;
+        atualizarBotao();
+        textarea.focus();
+      });
+
+      // Anexar imagem: envia na hora e guarda o caminho para o próximo pedido
+      document.getElementById('anexar').addEventListener('click', () => arquivo.click());
+
+      arquivo.addEventListener('change', async () => {
+        const file = arquivo.files[0];
+        arquivo.value = '';
+        if (!file) return;
+        try {
+          const res = await fetch('/api/upload', { method: 'POST', headers: { 'Content-Type': file.type }, body: file });
+          const data = await res.json();
+          if (!res.ok) throw new Error(data.error || 'Erro ao enviar a imagem');
+          imagem = data.url;
+          anexo.querySelector('img').src = imagem;
+          anexo.classList.add('ativo');
+          if (!textarea.value.trim()) textarea.placeholder = 'Ex: usa essa imagem como logo';
+          textarea.focus();
+        } catch (err) {
+          addMsg(err.message, 'bot erro');
+        }
+      });
+
+      function limparAnexo() {
+        imagem = null;
+        anexo.classList.remove('ativo');
+        textarea.placeholder = 'Peça uma alteração no site…';
+      }
+
+      document.getElementById('remover').addEventListener('click', limparAnexo);
+
+      document.getElementById('desfazer').addEventListener('click', desfazer);
+
+      document.getElementById('sair').addEventListener('click', async () => {
+        await api('/admin/logout', { method: 'POST' });
+        location.reload();
+      });
+
+      api('/api/me').then((me) => {
+        maxChars = me.maxChars;
+        maxPostChars = me.maxPostChars ?? maxPostChars;
+        if (me.ia === 'offline') info.textContent = 'A IA está offline: confira a GEMINI_API_KEY no .env do servidor.';
+        else mostrarRestantes(me.restantes);
+      });
+    </script>
+  </body>
+</html>

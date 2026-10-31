@@ -1,0 +1,11 @@
+node_modules
+.git
+.env
+.env.example
+public
+skills
+research
+/*.md
+Dockerfile
+docker-compose.yml
+Makefile

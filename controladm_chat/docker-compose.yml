@@ -1,0 +1,14 @@
+# Um container por site. public/ é a pasta do projeto: o que o chat altera cai direto nela.
+# Vários sites no mesmo servidor: cada um na sua pasta, com um PORT diferente no .env.
+services:
+  site:
+    build: .
+    image: ${DOCKER_IMAGE:-ldv-chat}
+    env_file: .env
+    ports:
+      - "${PORT}:${PORT}"
+    volumes:
+      - ./public:/app/public
+    init: true
+    restart: unless-stopped
+    mem_limit: 128m

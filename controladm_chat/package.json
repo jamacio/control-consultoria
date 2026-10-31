@@ -1,0 +1,20 @@
+{
+  "name": "ldv-digital",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node --env-file-if-exists=.env server.js",
+    "dev": "node --watch --env-file-if-exists=.env server.js",
+    "build:css": "tailwindcss -i public/theme.css -o public/site.css --minify"
+  },
+  "dependencies": {
+    "express": "^5.3.0",
+    "express-session": "^1.19.0",
+    "node-html-parser": "^9.0.5"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

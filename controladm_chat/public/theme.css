@@ -1,0 +1,151 @@
+/* Entrada do Tailwind: gera o site.css com `npm run build:css`, só quando o design do site muda.
+   As cores ficam no cores.css (CSS puro, que o chat altera); aqui elas viram classes: bg-bg, bg-surface,
+   text-fg, text-muted, border-border, bg-accent, text-accent-on...
+   As classes vêm das páginas, dos blocos e do site.js, então um bloco que o chat insere já tem o CSS pronto. */
+@import "tailwindcss" source(none);
+@source "./**/*.html";
+@source "./site.js";
+@source "../blocks/*.html";
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-on: var(--accent-on);
+  --color-accent-light: var(--accent-light);
+  --color-accent-dark: var(--accent-dark);
+}
+
+/* Fontes servidas pelo próprio site (public/fonts), sem Google Fonts */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url("/fonts/playfair-display.woff2") format("woff2");
+}
+
+@theme {
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --color-whatsapp: #25d366;
+  --color-whatsapp-dark: #128c7e;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Animações contínuas (classes animate-*) */
+  --animate-particle: particle-float linear infinite;
+  --animate-bounce-down: bounce-down 2s ease infinite;
+  --animate-glow: glow-pulse 4s ease infinite;
+  --animate-glow-slow: glow-pulse 6s ease infinite;
+  --animate-ken-burns: ken-burns 20s ease-in-out infinite alternate;
+  --animate-banner-glow: banner-glow 6s ease-in-out infinite alternate;
+  --animate-orb-float: orb-float 12s ease-in-out infinite alternate;
+  --animate-drift: shape-drift 18s ease-in-out infinite;
+  --animate-drift-reverse: shape-drift 22s ease-in-out infinite reverse;
+  --animate-drift-late: shape-drift 15s ease-in-out 3s infinite;
+  --animate-pulse-whatsapp: pulse-whatsapp 2s ease infinite;
+  --animate-btn-pulse: btn-pulse 2.5s ease-in-out infinite;
+
+  @keyframes particle-float {
+    0% { transform: translateY(100vh) scale(0); opacity: 0; }
+    10%, 90% { opacity: 0.6; }
+    100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+  }
+  @keyframes bounce-down {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(10px); }
+  }
+  @keyframes glow-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.5); opacity: 1; }
+  }
+  @keyframes ken-burns {
+    0% { transform: scale(1) translateX(0); }
+    100% { transform: scale(1.15) translateX(-30px); }
+  }
+  @keyframes banner-glow {
+    0% { opacity: 0.4; transform: translateX(-20px); }
+    100% { opacity: 1; transform: translateX(20px); }
+  }
+  @keyframes orb-float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-60px, 40px) scale(1.2); }
+  }
+  @keyframes shape-drift {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); opacity: 0.2; }
+    25% { transform: translate(40px, -30px) rotate(90deg); opacity: 0.5; }
+    50% { transform: translate(-20px, -60px) rotate(180deg); opacity: 0.3; }
+    75% { transform: translate(30px, 20px) rotate(270deg); opacity: 0.6; }
+  }
+  @keyframes pulse-whatsapp {
+    0%, 100% { box-shadow: 0 4px 20px rgb(37 211 102 / 0.4); }
+    50% { box-shadow: 0 4px 30px rgb(37 211 102 / 0.7); }
+  }
+  @keyframes btn-pulse {
+    0%, 100% { box-shadow: 0 4px 20px rgb(37 211 102 / 0.3); }
+    50% { box-shadow: 0 4px 40px rgb(37 211 102 / 0.6), 0 0 60px rgb(37 211 102 / 0.15); }
+  }
+}
+
+/* Texto com degradê verde (os destaques dos títulos) */
+@utility text-gradient {
+  background-image: linear-gradient(135deg, var(--accent), var(--accent-light), var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Esferas de luz (halos e orbs decorativos), nas cores do tema. A força se ajusta com opacity-* */
+@utility glow-accent {
+  background-image: radial-gradient(circle, color-mix(in oklab, var(--accent) 15%, transparent), transparent 70%);
+}
+
+@utility glow-surface {
+  background-image: radial-gradient(circle, color-mix(in oklab, var(--surface) 30%, transparent), transparent 70%);
+}
+
+/* Animação de entrada ao rolar: data-anim="fade-up | slide-up | slide-right | scale-in | zoom-in" e
+   data-delay="<ms>". O site.js põe data-visible quando o elemento entra na tela. Usa translate/scale
+   (e não transform) para não brigar com o efeito 3D do data-tilt, que usa transform. */
+@layer components {
+  @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+    [data-anim] {
+      opacity: 0;
+      transition:
+        opacity 1s ease,
+        translate 1s var(--ease-out-expo),
+        scale 1s var(--ease-spring),
+        filter 1.1s ease,
+        transform 0.3s ease;
+    }
+    [data-anim="fade-up"] { translate: 0 80px; }
+    [data-anim="slide-up"] { translate: 0 60px; transition-duration: 0.8s, 0.8s, 0.8s, 0.8s, 0.3s; }
+    [data-anim="slide-right"] { translate: -60px 0; transition-duration: 0.8s, 0.8s, 0.8s, 0.8s, 0.3s; }
+    [data-anim="scale-in"] { scale: 0.7; }
+    [data-anim="zoom-in"] { translate: 0 60px; scale: 0.85; filter: blur(12px); transition-duration: 1.1s, 1.1s, 1.1s, 1.1s, 0.3s; }
+    [data-anim][data-visible] { opacity: 1; translate: none; scale: none; filter: none; }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, ::before, ::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
